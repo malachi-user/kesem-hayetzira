@@ -1,0 +1,7 @@
+.vercel
+*.before-*.html
+*.bak
+*.tmp
+node_modules
+.env
+.env.*
