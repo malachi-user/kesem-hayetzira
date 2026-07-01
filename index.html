@@ -95,6 +95,14 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 .hero h1 em{font-style:normal;color:var(--gold)}
 .hero .sub{font-size:clamp(1.1rem,2.6vw,1.5rem);color:var(--ink-soft);font-family:'Frank Ruhl Libre';font-weight:500;margin-bottom:34px}
 .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-facts{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.fact{display:flex;align-items:center;gap:13px;background:rgba(255,252,248,.7);border:1px solid rgba(197,150,58,.28);
+  padding:11px 22px 11px 14px;border-radius:999px;box-shadow:var(--shadow-soft);backdrop-filter:blur(6px)}
+.fact-ico{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:rgba(197,150,58,.15);font-size:1.15rem;flex:none}
+.fact>div{display:flex;flex-direction:column;line-height:1.25;text-align:start}
+.fact-label{font-size:.74rem;font-weight:600;color:var(--ink-soft);letter-spacing:.03em}
+.fact-val{font-family:'Heebo';font-weight:800;color:var(--pine-deep);font-size:1.05rem}
+@media(max-width:430px){.hero-facts{flex-direction:column;align-items:stretch}.fact{justify-content:center}}
 
 .spark{position:absolute;color:var(--gold);z-index:1;opacity:.7;animation:tw 4s ease-in-out infinite}
 @keyframes tw{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:.9;transform:scale(1.15)}}
@@ -102,7 +110,6 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 /* ---------- intro band ---------- */
 .intro{background:var(--cream-deep);text-align:center}
 .intro p{font-family:'Frank Ruhl Libre';font-weight:500;font-size:clamp(1.3rem,3.4vw,2rem);color:var(--pine-deep);max-width:24ch;margin-inline:auto;line-height:1.4}
-.intro .intro-info{font-family:inherit;font-size:clamp(1rem,2.4vw,1.2rem);font-weight:600;color:var(--pine-deep);max-width:40ch;margin-top:22px;opacity:.9}
 
 /* ---------- about ---------- */
 .about-grid{display:grid;grid-template-columns:0.5fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
@@ -245,6 +252,16 @@ footer .credit{margin-top:24px;font-size:.8rem;color:rgba(250,246,241,.45)}
       </a>
       <a href="#classes" class="btn btn-ghost">לחוגים שלי ↩</a>
     </div>
+    <div class="hero-facts reveal">
+      <div class="fact">
+        <span class="fact-ico">📍</span>
+        <div><span class="fact-label">מיקום הסטודיו</span><span class="fact-val">יד בנימין</span></div>
+      </div>
+      <div class="fact">
+        <span class="fact-ico">🗓️</span>
+        <div><span class="fact-label">פתיחת השנה</span><span class="fact-val">י"ט אלול · 1 בספטמבר</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -253,7 +270,6 @@ footer .credit{margin-top:24px;font-size:.8rem;color:rgba(250,246,241,.45)}
   <div class="wrap">
     <div class="ornament reveal">✿</div>
     <p class="reveal">ברוכות הבאות לקסם היצירה - סטודיו המשלב אומנות, יצירתיות, חינוך והעצמה אישית.</p>
-    <p class="intro-info reveal">📍 ביד בנימין &nbsp;·&nbsp; 🗓️ הפתיחה בתחילת שנת הלימודים - י"ט אלול (1 בספטמבר)</p>
   </div>
 </section>
 
