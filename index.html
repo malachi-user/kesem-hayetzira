@@ -56,6 +56,19 @@ section{padding-block:clamp(64px,11vw,130px);position:relative}
 }
 .eyebrow::before{content:"✦";color:var(--gold);font-size:.9em}
 .lead{font-size:clamp(1.05rem,2vw,1.22rem);color:var(--ink-soft);max-width:60ch}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* unified warm grade for all photography */
+.grade{filter:saturate(1.05) sepia(.05) hue-rotate(-4deg)}
+
+/* thin scroll progress bar */
+.progress{position:fixed;top:0;inset-inline:0;height:3px;z-index:70;pointer-events:none;
+  background:linear-gradient(90deg,var(--bordeaux),var(--gold));
+  transform-origin:100% 50%;transform:scaleX(var(--p,0))}
+
+/* filmic grain overlay */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:65;opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 .ornament{display:flex;align-items:center;justify-content:center;gap:14px;margin-block:14px;color:var(--gold)}
 .ornament::before,.ornament::after{content:"";height:1px;width:64px;background:linear-gradient(90deg,transparent,var(--gold))}
@@ -66,8 +79,12 @@ section{padding-block:clamp(64px,11vw,130px);position:relative}
   display:inline-flex;align-items:center;gap:11px;font-family:'Heebo';font-weight:700;
   font-size:1.02rem;padding:16px 30px;border-radius:999px;cursor:pointer;border:0;
   transition:transform .4s var(--ease),box-shadow .4s var(--ease),background .3s;
-  will-change:transform;
+  will-change:transform;position:relative;overflow:hidden;
 }
+.btn-main::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.34) 50%,transparent 60%);
+  transform:translateX(-140%);transition:transform .9s var(--ease)}
+.btn-main:hover::after{transform:translateX(140%)}
 .btn-main{background:var(--bordeaux);color:var(--cream);box-shadow:0 14px 30px -12px rgba(123,59,71,.6)}
 .btn-main:hover{background:var(--bordeaux-deep);transform:translateY(-3px);box-shadow:0 20px 40px -14px rgba(123,59,71,.7)}
 .btn-ghost{background:transparent;color:var(--pine-deep);border:1.5px solid rgba(46,94,78,.35)}
@@ -86,10 +103,19 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 /* ---------- hero ---------- */
 .hero{padding-block:clamp(50px,9vw,90px);text-align:center;overflow:hidden}
 .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);z-index:0;opacity:.5}
-.hero::before{width:420px;height:420px;background:var(--rose);top:-120px;inset-inline-start:-100px}
-.hero::after{width:380px;height:380px;background:var(--sky);bottom:-140px;inset-inline-end:-90px}
+.hero::before{width:420px;height:420px;background:var(--rose);top:-120px;inset-inline-start:-100px;
+  transform:translateY(calc(var(--sy,0)*.09px))}
+.hero::after{width:380px;height:380px;background:var(--sky);bottom:-140px;inset-inline-end:-90px;
+  transform:translateY(calc(var(--sy,0)*-.06px))}
 .hero .wrap{position:relative;z-index:1}
-.hero-logo{width:min(330px,72vw);margin-inline:auto;margin-bottom:26px;filter:drop-shadow(0 16px 30px rgba(58,58,54,.12))}
+.hero-logo{width:min(330px,72vw);margin-inline:auto;margin-bottom:26px;filter:drop-shadow(0 16px 30px rgba(58,58,54,.12));
+  animation:floaty 7s ease-in-out 1.6s infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+/* masked line reveal for the headline */
+.reveal-mask{opacity:1;transform:none;filter:none;transition:none}
+.reveal-mask .mline{display:block;overflow:hidden;padding-block:.06em}
+.reveal-mask .mline>span{display:block;transform:translateY(115%);transition:transform 1.15s var(--ease) .12s}
+.reveal-mask.in .mline>span{transform:none}
 .hero .slogan{font-family:'Heebo';font-weight:700;color:var(--bordeaux);font-size:clamp(1rem,2.4vw,1.25rem);letter-spacing:.02em;margin-bottom:14px}
 .hero h1{font-size:clamp(2.5rem,7vw,5rem);margin-bottom:10px}
 .hero h1 em{font-style:normal;color:var(--gold)}
@@ -108,13 +134,30 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 @keyframes tw{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:.9;transform:scale(1.15)}}
 
 /* ---------- intro band ---------- */
-.intro{background:var(--cream-deep);text-align:center}
+.intro{background:var(--cream-deep);text-align:center;overflow:hidden}
 .intro p{font-family:'Frank Ruhl Libre';font-weight:500;font-size:clamp(1.3rem,3.4vw,2rem);color:var(--pine-deep);max-width:24ch;margin-inline:auto;line-height:1.4}
+
+/* ---------- studio photo marquee ---------- */
+.strip{margin-top:clamp(44px,7vw,72px);position:relative;overflow:hidden}
+.strip::before,.strip::after{content:"";position:absolute;inset-block:0;width:min(90px,12vw);z-index:2;pointer-events:none}
+.strip::before{right:0;background:linear-gradient(to left,var(--cream-deep),transparent)}
+.strip::after{left:0;background:linear-gradient(to right,var(--cream-deep),transparent)}
+.strip-track{display:flex;gap:clamp(14px,2.2vw,26px);width:max-content;padding-block:18px;
+  animation:slide 46s linear infinite}
+.strip:hover .strip-track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(50%)}}
+.strip .ph{height:clamp(150px,22vw,225px);aspect-ratio:1;flex:none;border-radius:18px;overflow:hidden;
+  border:5px solid #fff;box-shadow:var(--shadow-soft);transform:rotate(var(--tilt,0deg));
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.strip .ph:hover{transform:rotate(0deg) scale(1.05);box-shadow:var(--shadow)}
+.strip .ph img{width:100%;height:100%;object-fit:cover}
 
 /* ---------- about ---------- */
 .about-grid{display:grid;grid-template-columns:0.5fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
 .about-photo{position:relative}
-.about-photo img{width:100%;border-radius:var(--r-lg);box-shadow:var(--shadow);aspect-ratio:1/1;object-fit:cover;object-position:top center;max-height:340px}
+.about-photo img{width:100%;border-radius:var(--r-lg);box-shadow:var(--shadow);aspect-ratio:1/1;object-fit:cover;object-position:top center;max-height:340px;
+  transition:transform .9s var(--ease)}
+.about-photo:hover img{transform:scale(1.025)}
 .about-photo::after{content:"";position:absolute;inset-inline-end:-16px;inset-block-start:-16px;width:120px;height:120px;border:2px solid var(--gold);border-radius:var(--r-lg);z-index:-1}
 .about-photo .badge{position:absolute;inset-block-end:18px;inset-inline-start:18px;background:var(--cream-card);
   padding:12px 18px;border-radius:16px;box-shadow:var(--shadow-soft);font-family:'Heebo';font-weight:800;color:var(--bordeaux);font-size:1.05rem}
@@ -133,9 +176,23 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,2.8vw,34px);align-items:start}
 .card.life{grid-column:1 / -1}
 @media(max-width:760px){.cards{grid-template-columns:1fr}}
-.card{background:var(--cream-card);border:1px solid rgba(197,150,58,.2);border-radius:var(--r-lg);
-  padding:clamp(26px,3.5vw,40px);box-shadow:var(--shadow-soft);transition:transform .5s var(--ease),box-shadow .5s var(--ease);position:relative;overflow:hidden}
-.card::before{content:"";position:absolute;inset-block-start:0;inset-inline-start:0;height:5px;width:100%}
+.card{--pad:clamp(26px,3.5vw,40px);background:var(--cream-card);border:1px solid rgba(197,150,58,.2);border-radius:var(--r-lg);
+  padding:var(--pad);box-shadow:var(--shadow-soft);transition:transform .5s var(--ease),box-shadow .5s var(--ease);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset-block-start:0;inset-inline-start:0;height:5px;width:100%;z-index:2}
+
+/* card photo header */
+.card-media{margin:calc(-1*var(--pad)) calc(-1*var(--pad)) 24px;overflow:hidden;position:relative}
+.card-media img{width:100%;aspect-ratio:16/10;object-fit:cover;transform:scale(1.01);transition:transform 1s var(--ease)}
+.card:hover .card-media img{transform:scale(1.06)}
+.card-media::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(255,252,248,.28),transparent 42%)}
+
+/* life card side media */
+.card.life .life-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,48px);align-items:center}
+.life-media{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-soft);position:relative}
+.life-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;transition:transform 1s var(--ease)}
+.card.life:hover .life-media img{transform:scale(1.05)}
+@media(max-width:760px){.card.life .life-grid{grid-template-columns:1fr}.life-media{order:-1}}
 .card.art::before{background:linear-gradient(90deg,var(--rose),var(--gold),var(--sky))}
 .card.life::before{background:linear-gradient(90deg,var(--peach),var(--bordeaux))}
 .card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
@@ -170,13 +227,18 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 .why{background:var(--cream-deep)}
 .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
 .why-item{display:flex;gap:14px;align-items:flex-start;background:var(--cream-card);border-radius:18px;
-  padding:20px 22px;box-shadow:var(--shadow-soft);border:1px solid rgba(197,150,58,.14)}
+  padding:20px 22px;box-shadow:var(--shadow-soft);border:1px solid rgba(197,150,58,.14);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease)}
+.why-item:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(197,150,58,.4)}
 .why-item .v{color:var(--gold);font-size:1.3rem;flex:none;line-height:1.4}
 .why-item p{font-size:1.02rem;color:var(--ink);font-weight:500}
 
 /* ---------- emotional band ---------- */
-.emo{background:linear-gradient(135deg,var(--pine-deep),var(--pine));color:var(--cream);text-align:center;overflow:hidden}
+.emo{background:linear-gradient(135deg,var(--pine-deep),var(--pine));color:var(--cream);text-align:center;overflow:hidden;isolation:isolate}
 .emo::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(197,150,58,.22),transparent 55%);z-index:0}
+.emo-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.emo-bg img{width:100%;height:118%;object-fit:cover;opacity:.11;mix-blend-mode:luminosity;
+  transform:translateY(calc(var(--ep,0)*1px)) scale(1.1);will-change:transform}
 .emo .wrap{position:relative;z-index:1}
 .emo h2{color:var(--cream);font-size:clamp(1.8rem,4.5vw,2.8rem);margin-bottom:6px}
 .emo .big{font-family:'Heebo';font-weight:900;font-size:clamp(1.7rem,5vw,3rem);line-height:1.25;margin-block:18px;color:#fff}
@@ -212,9 +274,17 @@ footer .credit a{color:rgba(250,246,241,.72);font-weight:600;text-decoration:und
 footer .credit a:hover{color:var(--gold-soft)}
 
 /* ---------- reveal ---------- */
-.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.spark{animation:none}*{scroll-behavior:auto}}
+.reveal{opacity:0;transform:translateY(34px);filter:blur(7px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+.reveal.in{opacity:1;transform:none;filter:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;filter:none;transition:none}
+  .reveal-mask .mline>span{transform:none;transition:none}
+  .spark,.hero-logo,.strip-track{animation:none}
+  .hero::before,.hero::after{transform:none}
+  .emo-bg img{transform:scale(1.1)}
+  *{scroll-behavior:auto}
+}
 
 /* floating whatsapp */
 .fab{position:fixed;inset-block-end:22px;inset-inline-start:22px;z-index:60;width:58px;height:58px;border-radius:50%;
@@ -225,6 +295,8 @@ footer .credit a:hover{color:var(--gold-soft)}
 </style>
 </head>
 <body>
+
+<div class="progress" aria-hidden="true"></div>
 
 <!-- ===== NAV ===== -->
 <header class="nav">
@@ -245,7 +317,7 @@ footer .credit a:hover{color:var(--gold-soft)}
   <div class="wrap">
     <img class="hero-logo reveal" src="assets/logo.webp" width="330" height="330" fetchpriority="high" alt="קסם היצירה - הסטודיו של מירב">
     <p class="slogan reveal">יוצרות באהבה · צומחות בביטחון</p>
-    <h1 class="reveal">כל בת היא <em>יצירת מופת</em>.</h1>
+    <h1 class="reveal reveal-mask"><span class="mline"><span>כל בת היא <em>יצירת מופת</em>.</span></span></h1>
     <p class="sub reveal">לפעמים היא רק צריכה מקום שמאמין בה.</p>
     <div class="hero-cta reveal">
       <a href="#contact" class="btn btn-main">
@@ -273,13 +345,29 @@ footer .credit a:hover{color:var(--gold-soft)}
     <div class="ornament reveal">✿</div>
     <p class="reveal">ברוכות הבאות לקסם היצירה - סטודיו המשלב אומנות, יצירתיות, חינוך והעצמה אישית.</p>
   </div>
+  <div class="strip reveal">
+    <div class="strip-track">
+      <div class="ph" style="--tilt:-2deg"><img class="grade" src="assets/canvases.webp" width="800" height="800" loading="lazy" decoding="async" alt="ציורי קנבס פרחוניים בסטודיו"></div>
+      <div class="ph" style="--tilt:1.6deg"><img class="grade" src="assets/clay.webp" width="800" height="800" loading="lazy" decoding="async" alt="פרחי דאס בעבודת יד"></div>
+      <div class="ph" style="--tilt:-1.4deg"><img class="grade" src="assets/pastry.webp" width="800" height="800" loading="lazy" decoding="async" alt="קונדיטוריה יצירתית - קאפקייקס מעוטרים"></div>
+      <div class="ph" style="--tilt:2deg"><img class="grade" src="assets/epoxy.webp" width="800" height="800" loading="lazy" decoding="async" alt="יצירות אפוקסי בעבודת יד"></div>
+      <div class="ph" style="--tilt:-1.8deg"><img class="grade" src="assets/decoupage.webp" width="800" height="800" loading="lazy" decoding="async" alt="קופסת עץ בעיטור מפיות"></div>
+      <div class="ph" style="--tilt:1.4deg"><img class="grade" src="assets/watercolor.webp" width="1000" height="700" loading="lazy" decoding="async" alt="צבעי מים ומכחולים"></div>
+      <div class="ph" style="--tilt:-2deg" aria-hidden="true"><img class="grade" src="assets/canvases.webp" width="800" height="800" loading="lazy" decoding="async" alt=""></div>
+      <div class="ph" style="--tilt:1.6deg" aria-hidden="true"><img class="grade" src="assets/clay.webp" width="800" height="800" loading="lazy" decoding="async" alt=""></div>
+      <div class="ph" style="--tilt:-1.4deg" aria-hidden="true"><img class="grade" src="assets/pastry.webp" width="800" height="800" loading="lazy" decoding="async" alt=""></div>
+      <div class="ph" style="--tilt:2deg" aria-hidden="true"><img class="grade" src="assets/epoxy.webp" width="800" height="800" loading="lazy" decoding="async" alt=""></div>
+      <div class="ph" style="--tilt:-1.8deg" aria-hidden="true"><img class="grade" src="assets/decoupage.webp" width="800" height="800" loading="lazy" decoding="async" alt=""></div>
+      <div class="ph" style="--tilt:1.4deg" aria-hidden="true"><img class="grade" src="assets/watercolor.webp" width="1000" height="700" loading="lazy" decoding="async" alt=""></div>
+    </div>
+  </div>
 </section>
 
 <!-- ===== ABOUT ===== -->
 <section id="about">
   <div class="wrap about-grid">
     <div class="about-photo reveal">
-      <img src="assets/meirav.webp" width="740" height="1014" loading="lazy" decoding="async" alt="מירב גוטמן - מייסדת הסטודיו">
+      <img class="grade" src="assets/meirav.webp" width="740" height="1014" loading="lazy" decoding="async" alt="מירב גוטמן - מייסדת הסטודיו">
       <div class="badge">37 שנות ניסיון<small>בחינוך ובליווי תלמידות</small></div>
     </div>
     <div class="about-text">
@@ -302,6 +390,7 @@ footer .credit a:hover{color:var(--gold-soft)}
     </div>
     <div class="cards">
       <article class="card art reveal">
+        <div class="card-media"><img class="grade" src="assets/paints.webp" width="1000" height="700" loading="lazy" decoding="async" alt="צבעי אקריליק, פלטה ומכחולים"></div>
         <span class="ico">🎨</span>
         <h3>חוג אומנות</h3>
         <span class="ages">כיתות ה'–ו'</span>
@@ -322,6 +411,7 @@ footer .credit a:hover{color:var(--gold-soft)}
         </div>
       </article>
       <article class="card art reveal">
+        <div class="card-media"><img class="grade" src="assets/watercolor.webp" width="1000" height="700" loading="lazy" decoding="async" alt="ערכת צבעי מים וציור פרחוני"></div>
         <span class="ico">🖌️</span>
         <h3>חוג אומנות</h3>
         <span class="ages">כיתות ז'–ט'</span>
@@ -342,16 +432,21 @@ footer .credit a:hover{color:var(--gold-soft)}
         </div>
       </article>
       <article class="card life reveal">
-        <span class="ico">🎭</span>
-        <h3>משחק החיים</h3>
-        <span class="ages">כישורי חיים · כיתות ד'–ו'</span>
-        <p>חוג ייחודי שבו הבנות רוכשות כלים חשובים לחיים דרך משחק, דרמה, חוויה והמון הנאה. במהלך המפגשים נחזק:</p>
-        <ul class="skills-list">
-          <li>ביטחון עצמי</li><li>תקשורת בין־אישית</li><li>ביטוי רגשי</li>
-          <li>עמידה מול קבוצה</li><li>שיתוף פעולה ופתרון קונפליקטים</li>
-          <li>הקשבה ואמפתיה</li><li>קבלת החלטות וכלים לחיים</li>
-        </ul>
-        <p class="quote">"כי כשהלמידה נעשית מתוך משחק - היא נכנסת ישר אל הלב."</p>
+        <div class="life-grid">
+          <div>
+            <span class="ico">🎭</span>
+            <h3>משחק החיים</h3>
+            <span class="ages">כישורי חיים · כיתות ד'–ו'</span>
+            <p>חוג ייחודי שבו הבנות רוכשות כלים חשובים לחיים דרך משחק, דרמה, חוויה והמון הנאה. במהלך המפגשים נחזק:</p>
+            <ul class="skills-list">
+              <li>ביטחון עצמי</li><li>תקשורת בין־אישית</li><li>ביטוי רגשי</li>
+              <li>עמידה מול קבוצה</li><li>שיתוף פעולה ופתרון קונפליקטים</li>
+              <li>הקשבה ואמפתיה</li><li>קבלת החלטות וכלים לחיים</li>
+            </ul>
+            <p class="quote">"כי כשהלמידה נעשית מתוך משחק - היא נכנסת ישר אל הלב."</p>
+          </div>
+          <div class="life-media"><img class="grade" src="assets/drama.webp" width="1000" height="700" loading="lazy" decoding="async" alt="אביזרי דרמה ומשחק - מסכות וצעיפים צבעוניים"></div>
+        </div>
       </article>
     </div>
     <p class="bridge reveal">בכל מפגש אני משלבת יצירתיות, דמיון, למידה, חוויה והמון שמחה - כי כל יצירה היא גם הזדמנות לצמוח.</p>
@@ -380,6 +475,7 @@ footer .credit a:hover{color:var(--gold-soft)}
 
 <!-- ===== EMOTIONAL ===== -->
 <section class="emo">
+  <div class="emo-bg" aria-hidden="true"><img src="assets/studio-wide.webp" width="1408" height="768" loading="lazy" decoding="async" alt=""></div>
   <div class="wrap">
     <h2 class="reveal">בקסם היצירה לא רק יוצרים יצירות...</h2>
     <p class="big reveal">יוצרים <b>ביטחון</b>. יוצרים <b>שמחה</b>.<br>יוצרים <b>חברות</b>. יוצרים <b>הצלחות</b>.</p>
@@ -422,7 +518,30 @@ footer .credit a:hover{color:var(--gold-soft)}
 
 <script>
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
-document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*70)+'ms';io.observe(el)});
+document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains('reveal-mask'))el.style.transitionDelay=(i%4*70)+'ms';io.observe(el)});
+
+// scroll progress + light parallax (hero blobs, emotional band backdrop)
+(()=>{
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const bar=document.querySelector('.progress'),hero=document.querySelector('.hero'),emo=document.querySelector('.emo');
+  let ticking=false;
+  function frame(){
+    ticking=false;
+    const h=document.documentElement;
+    if(bar)bar.style.setProperty('--p',(h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight)).toFixed(4));
+    if(reduce)return;
+    if(hero)hero.style.setProperty('--sy',Math.min(window.scrollY,900));
+    if(emo){
+      const r=emo.getBoundingClientRect();
+      if(r.bottom>0&&r.top<innerHeight){
+        const p=(innerHeight-r.top)/(innerHeight+r.height);
+        emo.style.setProperty('--ep',((p-.5)*-56).toFixed(1));
+      }
+    }
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(frame)}},{passive:true});
+  frame();
+})();
 </script>
 </body>
 </html>
