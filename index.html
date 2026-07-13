@@ -57,6 +57,9 @@ section{padding-block:clamp(64px,11vw,130px);position:relative}
 .eyebrow::before{content:"✦";color:var(--gold);font-size:.9em}
 .lead{font-size:clamp(1.05rem,2vw,1.22rem);color:var(--ink-soft);max-width:60ch}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.skip-link{position:fixed;inset-block-start:8px;inset-inline-start:8px;z-index:1000;background:#fff;color:var(--pine-deep);
+  padding:10px 16px;border:2px solid var(--pine-deep);border-radius:10px;transform:translateY(-160%)}
+.skip-link:focus{transform:none}
 
 /* unified warm grade for all photography */
 .grade{filter:saturate(1.05) sepia(.05) hue-rotate(-4deg)}
@@ -284,9 +287,11 @@ footer .f-logo{width:70px;margin:0 auto 18px;opacity:.95;border-radius:12px}
 footer .f-wa{display:inline-flex;align-items:center;gap:9px;color:var(--cream);border:1px solid rgba(227,205,160,.4);
   padding:11px 22px;border-radius:999px;font-weight:600;transition:background .3s,transform .3s}
 footer .f-wa:hover{background:rgba(227,205,160,.12);transform:translateY(-2px)}
-footer .credit{margin-top:24px;font-size:.8rem;color:rgba(250,246,241,.45)}
-footer .credit a{color:rgba(250,246,241,.72);font-weight:600;text-decoration:underline;text-underline-offset:3px;transition:color .3s}
+footer .credit{margin-top:24px;font-size:.8rem;color:rgba(250,246,241,.82)}
+footer .credit a{color:var(--cream);font-weight:600;text-decoration:underline;text-underline-offset:3px;transition:color .3s}
 footer .credit a:hover{color:var(--gold-soft)}
+.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:20px}
+.footer-links a{color:var(--cream);text-decoration:underline;text-underline-offset:4px}
 
 /* ---------- reveal ---------- */
 .reveal{opacity:0;transform:translateY(34px);filter:blur(7px);
@@ -307,9 +312,34 @@ footer .credit a:hover{color:var(--gold-soft)}
   transition:transform .35s var(--ease)}
 .fab:hover{transform:scale(1.08)}
 .fab svg{width:30px;height:30px;fill:#fff}
+
+/* ---------- accessibility controls ---------- */
+.a11y-fab{position:fixed;inset-block-end:92px;inset-inline-start:22px;z-index:61;min-width:52px;min-height:52px;border:0;
+  border-radius:50%;background:var(--pine-deep);color:#fff;font-size:1.35rem;box-shadow:var(--shadow);cursor:pointer}
+.a11y-dialog{width:min(92vw,520px);max-height:86vh;margin:auto;border:0;border-radius:24px;padding:0;background:var(--cream-card);color:var(--ink)}
+.a11y-dialog::backdrop{background:rgba(20,30,27,.66)}
+.a11y-panel{padding:28px}.a11y-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}
+.a11y-head h2{font-size:1.55rem}.a11y-close{border:1px solid var(--gold);background:#fff;color:var(--ink);border-radius:50%;width:44px;height:44px;cursor:pointer}
+.a11y-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.a11y-grid button{min-height:48px;border:1px solid rgba(46,94,78,.35);
+  background:#fff;color:var(--pine-deep);border-radius:12px;padding:10px;font:inherit;font-weight:700;cursor:pointer}
+.a11y-grid button[aria-pressed="true"]{background:var(--pine-deep);color:#fff}
+.a11y-meta{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:20px}.a11y-meta a{text-decoration:underline;color:var(--pine-deep);font-weight:700}
+@media(max-width:520px){.a11y-grid{grid-template-columns:1fr}}
+html.a11y-text-125{font-size:21.875px}html.a11y-text-150{font-size:26.25px}
+html.a11y-links a{text-decoration:underline !important;text-decoration-thickness:2px !important}
+html.a11y-font *,html.a11y-font *::before,html.a11y-font *::after{font-family:Arial,Helvetica,sans-serif !important}
+html.a11y-spacing body{line-height:1.9;letter-spacing:.035em;word-spacing:.08em}
+html.a11y-no-motion *,html.a11y-no-motion *::before,html.a11y-no-motion *::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+html.a11y-grayscale{filter:grayscale(100%)}
+html.a11y-dark{--cream:#171a18;--cream-deep:#202521;--cream-card:#282e29;--ink:#fff;--ink-soft:#eef2ee;--pine-deep:#f7e9bd;--pine:#dce9df;--bordeaux:#f0cbd2;--gold:#f0cf85}
+html.a11y-contrast{--cream:#000;--cream-deep:#000;--cream-card:#000;--ink:#fff;--ink-soft:#fff;--pine-deep:#fff;--pine:#fff;--bordeaux:#ffeb3b;--gold:#ffeb3b;--gold-soft:#ffeb3b}
+html.a11y-contrast body,html.a11y-contrast section,html.a11y-contrast header,html.a11y-contrast footer{background:#000 !important;color:#fff !important}
+html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2px solid #fff !important}
 </style>
 </head>
 <body>
+
+<a class="skip-link" href="#main-content">דלגי לתוכן העיקרי</a>
 
 <div class="progress" aria-hidden="true"></div>
 
@@ -323,6 +353,8 @@ footer .credit a:hover{color:var(--gold-soft)}
     </a>
   </div>
 </header>
+
+<main id="main-content" tabindex="-1">
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="top">
@@ -509,6 +541,8 @@ footer .credit a:hover{color:var(--gold-soft)}
   </div>
 </section>
 
+</main>
+
 <!-- ===== FOOTER ===== -->
 <footer>
   <img class="f-logo" src="assets/logo-sm.webp" width="70" height="70" loading="lazy" alt="קסם היצירה">
@@ -518,6 +552,9 @@ footer .credit a:hover{color:var(--gold-soft)}
     <svg class="wa-ico" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
     054-2240193
   </a>
+  <nav class="footer-links" aria-label="קישורים משפטיים ונגישות">
+    <a href="accessibility.html">הצהרת נגישות</a>
+  </nav>
   <div class="credit">נבנה באהבה · <a href="https://wa.me/972542207149?text=%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%94%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%A9%D7%99%D7%A8%D7%95%D7%AA%D7%99%D7%9D%20%D7%A9%D7%9C%20%D7%A2%D7%A1%D7%A7%20%D7%97%D7%9B%D7%9D" target="_blank" rel="noopener">עסק חכם</a></div>
 </footer>
 
@@ -525,7 +562,56 @@ footer .credit a:hover{color:var(--gold-soft)}
   <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
 </a>
 
+<button class="a11y-fab" id="a11y-open" type="button" aria-label="פתיחת תפריט נגישות" aria-haspopup="dialog" aria-expanded="false">♿</button>
+<dialog class="a11y-dialog" id="a11y-dialog" aria-labelledby="a11y-title" aria-modal="true">
+  <div class="a11y-panel">
+    <div class="a11y-head">
+      <h2 id="a11y-title">הגדרות נגישות</h2>
+      <button class="a11y-close" id="a11y-close" type="button" aria-label="סגירת תפריט נגישות">✕</button>
+    </div>
+    <div class="a11y-grid">
+      <button type="button" data-a11y="text" aria-pressed="false">גודל טקסט: 100%</button>
+      <button type="button" data-a11y="contrast" aria-pressed="false">ניגודיות גבוהה</button>
+      <button type="button" data-a11y="dark" aria-pressed="false">מצב כהה</button>
+      <button type="button" data-a11y="links" aria-pressed="false">הדגשת קישורים</button>
+      <button type="button" data-a11y="font" aria-pressed="false">גופן קריא</button>
+      <button type="button" data-a11y="spacing" aria-pressed="false">ריווח מוגדל</button>
+      <button type="button" data-a11y="noMotion" aria-pressed="false">עצירת אנימציות</button>
+      <button type="button" data-a11y="grayscale" aria-pressed="false">גווני אפור</button>
+      <button type="button" id="a11y-reset">איפוס הגדרות</button>
+      <button type="button" id="a11y-hide">הסתרת הכפתור</button>
+    </div>
+    <div class="a11y-meta"><a href="accessibility.html">הצהרת נגישות</a><span>לסיוע: 054-2207149</span></div>
+  </div>
+</dialog>
+
 <script>
+// accessibility preferences
+(()=>{
+  const KEY='a11y-prefs',root=document.documentElement,open=document.getElementById('a11y-open');
+  const dialog=document.getElementById('a11y-dialog'),classes=['a11y-text-125','a11y-text-150','a11y-contrast','a11y-dark','a11y-links','a11y-font','a11y-spacing','a11y-no-motion','a11y-grayscale'];
+  let prefs={text:100,contrast:false,dark:false,links:false,font:false,spacing:false,noMotion:false,grayscale:false,hidden:false};
+  try{prefs={...prefs,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){}
+  const buttons={};document.querySelectorAll('[data-a11y]').forEach(b=>buttons[b.dataset.a11y]=b);
+  function apply(){
+    classes.forEach(c=>root.classList.remove(c));
+    if(prefs.text===125)root.classList.add('a11y-text-125');if(prefs.text===150)root.classList.add('a11y-text-150');
+    for(const k of ['contrast','dark','links','font','spacing','noMotion','grayscale'])if(prefs[k])root.classList.add('a11y-'+(k==='noMotion'?'no-motion':k));
+    buttons.text.textContent='גודל טקסט: '+prefs.text+'%';buttons.text.setAttribute('aria-pressed',String(prefs.text!==100));
+    for(const k of ['contrast','dark','links','font','spacing','noMotion','grayscale'])buttons[k].setAttribute('aria-pressed',String(!!prefs[k]));
+    open.hidden=!!prefs.hidden&&location.hash!=='#a11y';
+    try{localStorage.setItem(KEY,JSON.stringify(prefs))}catch(e){}
+  }
+  open.addEventListener('click',()=>{dialog.showModal();open.setAttribute('aria-expanded','true')});document.getElementById('a11y-close').addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('close',()=>open.setAttribute('aria-expanded','false'));
+  dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+  buttons.text.addEventListener('click',()=>{prefs.text=prefs.text===100?125:prefs.text===125?150:100;apply()});
+  for(const k of ['contrast','dark','links','font','spacing','noMotion','grayscale'])buttons[k].addEventListener('click',()=>{prefs[k]=!prefs[k];apply()});
+  document.getElementById('a11y-reset').addEventListener('click',()=>{prefs={text:100,contrast:false,dark:false,links:false,font:false,spacing:false,noMotion:false,grayscale:false,hidden:false};apply()});
+  document.getElementById('a11y-hide').addEventListener('click',()=>{prefs.hidden=true;apply();dialog.close()});
+  addEventListener('hashchange',apply);apply();
+})();
+
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains('reveal-mask'))el.style.transitionDelay=(i%4*70)+'ms';io.observe(el)});
 
