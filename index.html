@@ -139,6 +139,7 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 /* ---------- intro band ---------- */
 .intro{background:var(--cream-deep);text-align:center;overflow:hidden}
 .intro p{font-family:'Frank Ruhl Libre';font-weight:500;font-size:clamp(1.3rem,3.4vw,2rem);color:var(--pine-deep);max-width:24ch;margin-inline:auto;line-height:1.4}
+.intro .intro-sub{font-family:'Assistant';font-weight:600;font-size:clamp(1rem,2.2vw,1.15rem);color:var(--ink-soft);max-width:40ch;margin:16px auto 0;line-height:1.6}
 
 /* ---------- studio gallery wall (mosaic, scroll-reveal + pointer tilt) ---------- */
 .gallery{margin-top:clamp(44px,7vw,72px)}
@@ -240,6 +241,10 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 .card .quote{margin-top:20px;font-family:'Frank Ruhl Libre';font-style:normal;color:var(--bordeaux);font-size:1.22rem;font-weight:500;line-height:1.55}
 .bridge{text-align:center;font-family:'Frank Ruhl Libre';font-weight:500;font-size:clamp(1.15rem,2.6vw,1.55rem);
   color:var(--pine-deep);max-width:34ch;margin:clamp(34px,5vw,50px) auto 0;line-height:1.5}
+
+/* ---------- mid-section CTA ---------- */
+.sec-cta{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:clamp(30px,5vw,46px)}
+.sec-cta__txt{font-family:'Heebo';font-weight:700;color:var(--pine-deep);font-size:1.08rem;text-align:center}
 
 /* ---------- why us ---------- */
 .why{background:var(--cream-deep)}
@@ -349,7 +354,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
     <a href="#top" class="nav-logo"><img src="assets/logo-sm.webp" width="46" height="46" alt="קסם היצירה"><span>קסם היצירה</span></a>
     <a href="#contact" class="btn btn-main nav-cta">
       <svg class="wa-ico" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg>
-      לפרטים
+      לשמירת מקום
     </a>
   </div>
 </header>
@@ -363,15 +368,16 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
   <span class="spark" style="bottom:24%;inset-inline-start:20%;font-size:.9rem;animation-delay:2s">✦</span>
   <div class="wrap">
     <img class="hero-logo reveal" src="assets/logo.webp" width="330" height="330" fetchpriority="high" alt="קסם היצירה - הסטודיו של מירב">
+    <span class="eyebrow reveal">חוגי אומנות לבנות · יד בנימין</span>
     <p class="slogan reveal">יוצרות באהבה · צומחות בביטחון</p>
     <h1 class="reveal reveal-mask"><span class="mline"><span>כל בת היא <em>יצירת מופת</em>.</span></span></h1>
-    <p class="sub reveal">לפעמים היא רק צריכה מקום שמאמין בה.</p>
+    <p class="sub reveal">חוגי אומנות שבועיים לבנות בכיתות ה'-ט', ולצדם גם חיזוק ביטחון עצמי וכישורי חיים.</p>
     <div class="hero-cta reveal">
       <a href="#contact" class="btn btn-main">
         <svg class="wa-ico" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         לשמירת מקום לבת שלך
       </a>
-      <a href="#classes" class="btn btn-ghost">לחוגים שלי ↩</a>
+      <a href="#classes" class="btn btn-ghost">לצפייה בחוגים ↩</a>
     </div>
     <div class="hero-facts reveal">
       <div class="fact">
@@ -390,7 +396,8 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
 <section class="intro">
   <div class="wrap">
     <div class="ornament reveal">✿</div>
-    <p class="reveal">ברוכות הבאות לקסם היצירה - סטודיו המשלב אומנות, יצירתיות, חינוך והעצמה אישית.</p>
+    <p class="reveal">מתי בפעם האחרונה הבת שלך ישבה ויצרה משהו במו ידיים - בלי מסך, בלי לחץ, רק היא והדמיון שלה?</p>
+    <p class="reveal intro-sub">בקסם היצירה יש לה בדיוק את המקום הזה: סטודיו לחוגי אומנות ולהעצמה אישית, בקבוצה קטנה וחמה שבה כל בת מרגישה שרואים אותה.</p>
   </div>
   <div class="gallery">
     <div class="gallery-grid">
@@ -491,6 +498,13 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
       </article>
     </div>
     <p class="bridge reveal">בכל מפגש אני משלבת יצירתיות, דמיון, למידה, חוויה והמון שמחה - כי כל יצירה היא גם הזדמנות לצמוח.</p>
+    <div class="sec-cta reveal">
+      <p class="sec-cta__txt">כבר יודעת לאיזה חוג היא שייכת? המקומות מתמלאים מהר.</p>
+      <a href="#contact" class="btn btn-main">
+        <svg class="wa-ico" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        לשמירת מקום לבת שלך
+      </a>
+    </div>
   </div>
 </section>
 
