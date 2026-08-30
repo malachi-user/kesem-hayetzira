@@ -136,6 +136,21 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 .spark{position:absolute;color:var(--gold);z-index:1;opacity:.7;animation:tw 4s ease-in-out infinite}
 @keyframes tw{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:.9;transform:scale(1.15)}}
 
+/* ---------- mascot ---------- */
+.hero-mascot{position:absolute;inset-block-start:6%;inset-inline-end:4%;z-index:1;width:clamp(90px,11vw,150px);
+  height:auto;pointer-events:none;filter:drop-shadow(0 14px 24px rgba(58,58,54,.18));
+  animation:floaty 6.4s ease-in-out .4s infinite}
+@media(max-width:820px){.hero-mascot{display:none}}
+.play-mascot{position:absolute;inset-block-end:calc(100% - 6px);inset-inline-end:-8px;z-index:2;
+  width:clamp(70px,8vw,110px);height:auto;pointer-events:none;transform-origin:bottom center;
+  filter:drop-shadow(0 10px 18px rgba(58,58,54,.16));animation:floaty 5.6s ease-in-out .2s infinite}
+@media(max-width:900px){.play-mascot{display:none}}
+.wheel-card .wheel-mascot{position:absolute;top:12px;right:12px;z-index:2;width:clamp(58px,6.5vw,84px);height:auto;
+  pointer-events:none;opacity:0;transform:scale(.7) rotate(-8deg);
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+  filter:drop-shadow(0 8px 14px rgba(58,58,54,.2))}
+.wheel-mascot.show{opacity:1;transform:scale(1) rotate(0deg)}
+
 /* ---------- intro band ---------- */
 .intro{background:var(--cream-deep);text-align:center;overflow:hidden}
 .intro p{font-family:'Frank Ruhl Libre';font-weight:500;font-size:clamp(1.3rem,3.4vw,2rem);color:var(--pine-deep);max-width:24ch;margin-inline:auto;line-height:1.4}
@@ -305,7 +320,7 @@ footer .credit a:hover{color:var(--gold-soft)}
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;filter:none;transition:none}
   .reveal-mask .mline>span{transform:none;transition:none}
-  .spark,.hero-logo,.strip-track{animation:none}
+  .spark,.hero-logo,.strip-track,.hero-mascot,.play-mascot{animation:none}
   .hero::before,.hero::after{transform:none}
   .emo-bg img{transform:scale(1.1)}
   *{scroll-behavior:auto}
@@ -323,7 +338,7 @@ footer .credit a:hover{color:var(--gold-soft)}
 
 /* ---------- play zone: live drawing pad ---------- */
 .playzone{background:var(--cream-deep)}
-.pad{max-width:900px;margin-inline:auto}
+.pad{position:relative;max-width:900px;margin-inline:auto}
 .pad-tools{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
 .pad-colors{display:flex;gap:10px;flex-wrap:wrap}
 .pad-color{--c:#000;width:38px;height:38px;border-radius:50%;background:var(--c);border:3px solid #fff;
@@ -432,6 +447,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
   <span class="spark" style="top:30%;inset-inline-end:12%;font-size:1rem;animation-delay:1.2s">✧</span>
   <span class="spark" style="bottom:24%;inset-inline-start:20%;font-size:.9rem;animation-delay:2s">✦</span>
   <div class="wrap">
+    <img class="hero-mascot" src="assets/mascot-idle.webp" width="640" height="960" alt="" aria-hidden="true" loading="lazy">
     <img class="hero-logo reveal" src="assets/logo.webp" width="330" height="330" fetchpriority="high" alt="קסם היצירה - הסטודיו של מירב">
     <span class="eyebrow reveal">חוגי אומנות לבנות · יד בנימין</span>
     <p class="slogan reveal">יוצרות באהבה · צומחות בביטחון</p>
@@ -499,6 +515,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
           <button type="button" class="pad-btn" id="pad-clear">🧽 נקי הכל</button>
         </div>
       </div>
+      <img class="play-mascot" src="assets/mascot-paint.webp" width="640" height="960" alt="" aria-hidden="true" loading="lazy">
       <div class="pad-canvas-wrap">
         <canvas id="pad" width="1000" height="560" aria-label="לוח ציור אינטראקטיבי - געי וגררי כדי לצייר"></canvas>
         <p class="pad-hint" id="pad-hint">געי וגררי כדי לצייר ✦</p>
@@ -641,6 +658,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
       <p class="lead reveal">סובבי, וקבלי רעיון יצירה קטן לנסות היום - כאן בסטודיו או בבית.</p>
     </div>
     <div class="wheel-card reveal">
+      <img class="wheel-mascot" id="wheel-mascot" src="assets/mascot-sparkle.webp" width="640" height="960" alt="" aria-hidden="true" loading="lazy">
       <div class="wheel-box">
         <div class="wheel-pointer" aria-hidden="true">▼</div>
         <div class="wheel" id="wheel" role="img" aria-label="גלגל השראה צבעוני"></div>
@@ -948,6 +966,7 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains(
 // inspiration wheel
 (()=>{
   const wheel=document.getElementById('wheel'),btn=document.getElementById('wheel-spin'),result=document.getElementById('wheel-result');
+  const mascot=document.getElementById('wheel-mascot');
   if(!wheel||!btn)return;
   const prompts=[
     'ציירי נוף דמיוני בצבעי מים על דף רטוב',
@@ -964,6 +983,7 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains(
     if(spinning)return;
     spinning=true;
     result.classList.remove('show');
+    if(mascot)mascot.classList.remove('show');
     const seg=360/prompts.length;
     const idx=Math.floor(Math.random()*prompts.length);
     const targetCenter=idx*seg+seg/2;
@@ -973,6 +993,7 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains(
       spinning=false;
       result.textContent='🌟 '+prompts[idx];
       result.classList.add('show');
+      if(mascot)mascot.classList.add('show');
     },3300);
   });
 })();
