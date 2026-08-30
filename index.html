@@ -349,24 +349,36 @@ footer .credit a:hover{color:var(--gold-soft)}
 .scratch-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .scratch-fx{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;transition:opacity .6s var(--ease)}
 .scratch-fx.done{opacity:0;pointer-events:none}
-.scratch-tag{position:absolute;inset-block-end:14px;inset-inline-start:50%;transform:translateX(-50%);
-  background:rgba(255,252,248,.94);color:var(--bordeaux);font-family:'Heebo';font-weight:700;font-size:.86rem;
-  padding:6px 16px;border-radius:999px;opacity:0;transition:opacity .5s .1s;pointer-events:none;white-space:nowrap}
+.scratch-tag{position:absolute;inset-block-end:12px;left:50%;transform:translateX(-50%);
+  background:rgba(255,252,248,.94);color:var(--bordeaux);font-family:'Heebo';font-weight:700;font-size:.82rem;
+  line-height:1.3;padding:7px 14px;border-radius:16px;opacity:0;transition:opacity .5s .1s;pointer-events:none;
+  white-space:normal;text-align:center;max-width:calc(100% - 24px);box-shadow:var(--shadow-soft)}
 .scratch-card.revealed .scratch-tag{opacity:1}
 
 /* ---------- inspiration wheel ---------- */
-.wheel-zone{background:var(--cream-deep);text-align:center;overflow:hidden}
-.wheel-box{display:flex;flex-direction:column;align-items:center;gap:20px}
-.wheel-pointer{font-size:1.6rem;color:var(--bordeaux);margin-bottom:-12px;z-index:2}
-.wheel{width:min(280px,64vw);aspect-ratio:1;border-radius:50%;position:relative;
-  background:conic-gradient(var(--bordeaux) 0 45deg,var(--pine) 45deg 90deg,var(--gold) 90deg 135deg,
-    var(--rose) 135deg 180deg,var(--sky) 180deg 225deg,var(--peach) 225deg 270deg,
-    var(--pine-deep) 270deg 315deg,var(--gold-soft) 315deg 360deg);
-  box-shadow:var(--shadow),inset 0 0 0 8px #fff,inset 0 0 0 10px rgba(197,150,58,.4);
+.wheel-zone{background:var(--cream-deep);text-align:center;overflow:hidden;padding-block:clamp(48px,8vw,90px)}
+.wheel-card{position:relative;max-width:520px;margin-inline:auto;background:var(--cream-card);
+  border:1px solid rgba(197,150,58,.25);border-radius:var(--r-lg);box-shadow:var(--shadow);
+  padding:clamp(32px,5vw,50px) clamp(20px,5vw,40px);display:flex;flex-direction:column;align-items:center;
+  gap:22px;overflow:hidden}
+.wheel-card::before,.wheel-card::after{content:"";position:absolute;border-radius:50%;filter:blur(60px);opacity:.4;z-index:0}
+.wheel-card::before{width:200px;height:200px;background:var(--rose);top:-70px;inset-inline-start:-60px}
+.wheel-card::after{width:180px;height:180px;background:var(--sky);bottom:-70px;inset-inline-end:-50px}
+.wheel-card>*{position:relative;z-index:1}
+.wheel-box{display:flex;flex-direction:column;align-items:center}
+.wheel-pointer{font-size:1.5rem;color:var(--bordeaux);margin-bottom:-11px;filter:drop-shadow(0 2px 3px rgba(58,58,54,.25))}
+.wheel{width:min(240px,58vw);aspect-ratio:1;border-radius:50%;position:relative;
+  background:
+    repeating-conic-gradient(#fff 0deg 1.4deg,transparent 1.4deg 45deg),
+    conic-gradient(var(--gold) 0deg 45deg,var(--bordeaux) 45deg 90deg,var(--pine) 90deg 135deg,
+      var(--gold) 135deg 180deg,var(--bordeaux) 180deg 225deg,var(--pine) 225deg 270deg,
+      var(--gold) 270deg 315deg,var(--bordeaux) 315deg 360deg);
+  box-shadow:var(--shadow-soft),inset 0 0 0 6px #fff,inset 0 0 0 8px rgba(197,150,58,.45);
   transition:transform 3.2s cubic-bezier(.12,.86,.18,1)}
-.wheel::after{content:"✦";position:absolute;inset:0;display:grid;place-items:center;font-size:2rem;color:#fff;
-  text-shadow:0 2px 6px rgba(0,0,0,.25)}
-.wheel-result{font-family:'Frank Ruhl Libre';font-size:clamp(1.1rem,2.6vw,1.4rem);color:var(--pine-deep);
+.wheel::after{content:"✦";position:absolute;inset:36%;border-radius:50%;display:grid;place-items:center;
+  background:var(--cream-card);color:var(--gold);font-size:1.3rem;
+  box-shadow:0 3px 10px rgba(58,58,54,.28),inset 0 0 0 2.5px rgba(197,150,58,.55)}
+.wheel-result{font-family:'Frank Ruhl Libre';font-weight:500;font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--pine-deep);
   min-height:1.6em;max-width:36ch;opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
 .wheel-result.show{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.wheel{transition:none}}
@@ -628,9 +640,11 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
       <h2 class="reveal">לא יודעת ממה להתחיל? תני לגלגל להפתיע</h2>
       <p class="lead reveal">סובבי, וקבלי רעיון יצירה קטן לנסות היום - כאן בסטודיו או בבית.</p>
     </div>
-    <div class="wheel-box reveal">
-      <div class="wheel-pointer" aria-hidden="true">▼</div>
-      <div class="wheel" id="wheel" role="img" aria-label="גלגל השראה צבעוני"></div>
+    <div class="wheel-card reveal">
+      <div class="wheel-box">
+        <div class="wheel-pointer" aria-hidden="true">▼</div>
+        <div class="wheel" id="wheel" role="img" aria-label="גלגל השראה צבעוני"></div>
+      </div>
       <button type="button" class="btn btn-main wheel-spin" id="wheel-spin">✦ סובבי את הגלגל</button>
       <p class="wheel-result" id="wheel-result" aria-live="polite"></p>
     </div>
@@ -936,14 +950,14 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains(
   const wheel=document.getElementById('wheel'),btn=document.getElementById('wheel-spin'),result=document.getElementById('wheel-result');
   if(!wheel||!btn)return;
   const prompts=[
-    'ציירי דמיון פרוע על קנבס קטן',
-    'צבעי קיר דמיוני בצבעי אקריליק',
-    'ציירי פרח שאף אחת לא ראתה כמוהו',
-    'עצבי פרח מדאס לחדר שלך',
+    'ציירי נוף דמיוני בצבעי מים על דף רטוב',
+    'צבעי פרח גדול על קנבס קטן באקריליק',
+    'עצבי פרח או חיה קטנה מדאס',
     'עטרי קופסת עץ ישנה במפיות צבעוניות',
-    'עטרי קאפקייק בסגנון שלך',
-    'צבעי מסגרת עץ לתמונה האהובה עלייך',
-    'צרי תליון קטן בשרף צבעוני'
+    'עצבי תליון קטן משרף אפוקסי צבעוני',
+    'עטרי עוגייה או קאפקייק כמו קונדיטורית אמיתית',
+    'צבעי וקשטי מסגרת עץ לתמונה האהובה עלייך',
+    'צרי יצירה תלת־ממדית מקרטון, כפתורים וחוטים'
   ];
   let spinning=false,rotation=0;
   btn.addEventListener('click',()=>{
