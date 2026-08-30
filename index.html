@@ -318,6 +318,59 @@ footer .credit a:hover{color:var(--gold-soft)}
 .fab:hover{transform:scale(1.08)}
 .fab svg{width:30px;height:30px;fill:#fff}
 
+/* magic cursor trail (fine pointer + motion allowed only) */
+#magic-trail{position:fixed;inset:0;z-index:63;pointer-events:none}
+
+/* ---------- play zone: live drawing pad ---------- */
+.playzone{background:var(--cream-deep)}
+.pad{max-width:900px;margin-inline:auto}
+.pad-tools{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.pad-colors{display:flex;gap:10px;flex-wrap:wrap}
+.pad-color{--c:#000;width:38px;height:38px;border-radius:50%;background:var(--c);border:3px solid #fff;
+  box-shadow:0 0 0 2px rgba(58,58,54,.18),var(--shadow-soft);cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.pad-color:hover{transform:scale(1.12)}
+.pad-color[aria-pressed="true"]{box-shadow:0 0 0 3px var(--c),0 0 0 6px #fff,var(--shadow-soft);transform:scale(1.15)}
+.pad-actions{display:flex;gap:10px}
+.pad-btn{font-family:'Heebo';font-weight:700;font-size:.92rem;padding:10px 18px;border-radius:999px;
+  border:1.5px solid rgba(46,94,78,.3);background:#fff;color:var(--pine-deep);cursor:pointer;transition:transform .3s var(--ease),background .3s}
+.pad-btn:hover{background:var(--cream-card);transform:translateY(-2px)}
+.pad-canvas-wrap{position:relative;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);background:#fffcf8;
+  background-image:radial-gradient(rgba(197,150,58,.16) 1px,transparent 1px);background-size:22px 22px}
+#pad{display:block;width:100%;height:auto;aspect-ratio:1000/560;touch-action:none;cursor:crosshair}
+.pad-hint{position:absolute;inset-inline-start:50%;inset-block-start:50%;transform:translate(-50%,-50%);
+  font-family:'Frank Ruhl Libre';color:var(--ink-soft);font-size:1.1rem;pointer-events:none;transition:opacity .5s;text-align:center;width:80%}
+.pad-hint.gone{opacity:0}
+
+/* ---------- surprise: scratch-reveal cards ---------- */
+.surprise{background:var(--cream)}
+.scratch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,26px)}
+@media(max-width:760px){.scratch-grid{grid-template-columns:1fr}}
+.scratch-card{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-soft);border:5px solid #fff}
+.scratch-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scratch-fx{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;transition:opacity .6s var(--ease)}
+.scratch-fx.done{opacity:0;pointer-events:none}
+.scratch-tag{position:absolute;inset-block-end:14px;inset-inline-start:50%;transform:translateX(-50%);
+  background:rgba(255,252,248,.94);color:var(--bordeaux);font-family:'Heebo';font-weight:700;font-size:.86rem;
+  padding:6px 16px;border-radius:999px;opacity:0;transition:opacity .5s .1s;pointer-events:none;white-space:nowrap}
+.scratch-card.revealed .scratch-tag{opacity:1}
+
+/* ---------- inspiration wheel ---------- */
+.wheel-zone{background:var(--cream-deep);text-align:center;overflow:hidden}
+.wheel-box{display:flex;flex-direction:column;align-items:center;gap:20px}
+.wheel-pointer{font-size:1.6rem;color:var(--bordeaux);margin-bottom:-12px;z-index:2}
+.wheel{width:min(280px,64vw);aspect-ratio:1;border-radius:50%;position:relative;
+  background:conic-gradient(var(--bordeaux) 0 45deg,var(--pine) 45deg 90deg,var(--gold) 90deg 135deg,
+    var(--rose) 135deg 180deg,var(--sky) 180deg 225deg,var(--peach) 225deg 270deg,
+    var(--pine-deep) 270deg 315deg,var(--gold-soft) 315deg 360deg);
+  box-shadow:var(--shadow),inset 0 0 0 8px #fff,inset 0 0 0 10px rgba(197,150,58,.4);
+  transition:transform 3.2s cubic-bezier(.12,.86,.18,1)}
+.wheel::after{content:"✦";position:absolute;inset:0;display:grid;place-items:center;font-size:2rem;color:#fff;
+  text-shadow:0 2px 6px rgba(0,0,0,.25)}
+.wheel-result{font-family:'Frank Ruhl Libre';font-size:clamp(1.1rem,2.6vw,1.4rem);color:var(--pine-deep);
+  min-height:1.6em;max-width:36ch;opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.wheel-result.show{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.wheel{transition:none}}
+
 /* ---------- accessibility controls ---------- */
 .a11y-fab{position:fixed;inset-block-end:92px;inset-inline-start:22px;z-index:61;min-width:52px;min-height:52px;border:0;
   border-radius:50%;background:var(--pine-deep);color:#fff;font-size:1.35rem;box-shadow:var(--shadow);cursor:pointer}
@@ -407,6 +460,37 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
       <figure class="gitem g4"><img class="grade" src="assets/epoxy.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="יצירות אפוקסי בעבודת יד"></figure>
       <figure class="gitem g5"><img class="grade" src="assets/decoupage.webp" width="1100" height="738" loading="lazy" decoding="async" alt="קופסת עץ בעיטור מפיות"></figure>
       <figure class="gitem g6"><img class="grade" src="assets/watercolor.webp" width="1100" height="614" loading="lazy" decoding="async" alt="צבעי מים ומכחולים"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLAY: live drawing pad ===== -->
+<section id="play" class="playzone">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">נסי בעצמך</span>
+      <h2 class="reveal">קצת קסם, ביד שלך</h2>
+      <p class="lead reveal">געי, ציירי, מחקי והתחילי מחדש - בדיוק ככה מרגיש חוג אצלנו. תני לעצמך רגע לשחק.</p>
+    </div>
+    <div class="pad reveal">
+      <div class="pad-tools">
+        <div class="pad-colors" role="group" aria-label="בחירת צבע לציור">
+          <button type="button" class="pad-color" style="--c:var(--bordeaux)" data-color="var(--bordeaux)" aria-label="בורדו" aria-pressed="true"></button>
+          <button type="button" class="pad-color" style="--c:var(--pine)" data-color="var(--pine)" aria-label="ירוק אורן" aria-pressed="false"></button>
+          <button type="button" class="pad-color" style="--c:var(--gold)" data-color="var(--gold)" aria-label="זהב" aria-pressed="false"></button>
+          <button type="button" class="pad-color" style="--c:var(--rose)" data-color="var(--rose)" aria-label="ורוד" aria-pressed="false"></button>
+          <button type="button" class="pad-color" style="--c:var(--sky)" data-color="var(--sky)" aria-label="תכלת" aria-pressed="false"></button>
+          <button type="button" class="pad-color" style="--c:var(--peach)" data-color="var(--peach)" aria-label="אפרסק" aria-pressed="false"></button>
+        </div>
+        <div class="pad-actions">
+          <button type="button" class="pad-btn" id="pad-undo">↩︎ בטלי קו</button>
+          <button type="button" class="pad-btn" id="pad-clear">🧽 נקי הכל</button>
+        </div>
+      </div>
+      <div class="pad-canvas-wrap">
+        <canvas id="pad" width="1000" height="560" aria-label="לוח ציור אינטראקטיבי - געי וגררי כדי לצייר"></canvas>
+        <p class="pad-hint" id="pad-hint">געי וגררי כדי לצייר ✦</p>
+      </div>
     </div>
   </div>
 </section>
@@ -504,6 +588,51 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
         <svg class="wa-ico" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         לשמירת מקום לבת שלך
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SURPRISE: scratch-reveal cards ===== -->
+<section class="surprise">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">הפתעה קטנה</span>
+      <h2 class="reveal">גלי מה מסתתר מתחת לקסם</h2>
+      <p class="lead reveal">גררי אצבע או עכבר על כל כרטיס, וגלי איזו יצירה מתחבאת מתחת.</p>
+    </div>
+    <div class="scratch-grid reveal">
+      <div class="scratch-card">
+        <img class="grade" src="assets/clay.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="פרחי דאס בעבודת יד">
+        <canvas class="scratch-fx" aria-hidden="true"></canvas>
+        <span class="scratch-tag">✨ פרחי דאס בעבודת יד</span>
+      </div>
+      <div class="scratch-card">
+        <img class="grade" src="assets/epoxy.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="יצירות אפוקסי בעבודת יד">
+        <canvas class="scratch-fx" aria-hidden="true"></canvas>
+        <span class="scratch-tag">✨ יצירות אפוקסי בעבודת יד</span>
+      </div>
+      <div class="scratch-card">
+        <img class="grade" src="assets/decoupage.webp" width="1100" height="738" loading="lazy" decoding="async" alt="קופסת עץ בעיטור מפיות">
+        <canvas class="scratch-fx" aria-hidden="true"></canvas>
+        <span class="scratch-tag">✨ קופסת עץ בעיטור מפיות</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHEEL: inspiration wheel ===== -->
+<section class="wheel-zone">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow reveal">גלגל ההשראה</span>
+      <h2 class="reveal">לא יודעת ממה להתחיל? תני לגלגל להפתיע</h2>
+      <p class="lead reveal">סובבי, וקבלי רעיון יצירה קטן לנסות היום - כאן בסטודיו או בבית.</p>
+    </div>
+    <div class="wheel-box reveal">
+      <div class="wheel-pointer" aria-hidden="true">▼</div>
+      <div class="wheel" id="wheel" role="img" aria-label="גלגל השראה צבעוני"></div>
+      <button type="button" class="btn btn-main wheel-spin" id="wheel-spin">✦ סובבי את הגלגל</button>
+      <p class="wheel-result" id="wheel-result" aria-live="polite"></p>
     </div>
   </div>
 </section>
@@ -685,6 +814,195 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains(
       img.style.setProperty('--rx','0deg');
     });
   });
+})();
+
+// live drawing pad
+(()=>{
+  const canvas=document.getElementById('pad');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const hint=document.getElementById('pad-hint');
+  const colorButtons=[...document.querySelectorAll('.pad-color')];
+
+  function resolveColor(v){
+    const tmp=document.createElement('span');tmp.style.color=v;tmp.style.display='none';
+    document.body.appendChild(tmp);
+    const c=getComputedStyle(tmp).color;tmp.remove();return c;
+  }
+  let color=resolveColor(colorButtons[0].dataset.color);
+  colorButtons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      colorButtons.forEach(b=>b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      color=resolveColor(btn.dataset.color);
+    });
+  });
+
+  let strokes=[],current=null,drawing=false;
+  function toLocal(ev){
+    const r=canvas.getBoundingClientRect();
+    return {x:(ev.clientX-r.left)*(canvas.width/r.width),y:(ev.clientY-r.top)*(canvas.height/r.height)};
+  }
+  function redraw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    strokes.forEach(s=>{
+      ctx.strokeStyle=s.color;ctx.lineWidth=11;ctx.lineJoin='round';ctx.lineCap='round';ctx.globalAlpha=.92;
+      ctx.beginPath();
+      s.points.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+      if(s.points.length===1)ctx.lineTo(s.points[0].x+.1,s.points[0].y+.1);
+      ctx.stroke();
+    });
+    ctx.globalAlpha=1;
+  }
+  function start(ev){
+    drawing=true;
+    if(hint)hint.classList.add('gone');
+    current={color,points:[toLocal(ev)]};
+    strokes.push(current);
+    canvas.setPointerCapture(ev.pointerId);
+    redraw();
+  }
+  function move(ev){
+    if(!drawing)return;
+    current.points.push(toLocal(ev));
+    redraw();
+  }
+  function end(){drawing=false;current=null}
+  canvas.addEventListener('pointerdown',start);
+  canvas.addEventListener('pointermove',move);
+  canvas.addEventListener('pointerup',end);
+  canvas.addEventListener('pointercancel',end);
+  document.getElementById('pad-undo').addEventListener('click',()=>{strokes.pop();redraw()});
+  document.getElementById('pad-clear').addEventListener('click',()=>{strokes=[];redraw();if(hint)hint.classList.remove('gone')});
+})();
+
+// scratch-reveal cards
+(()=>{
+  const cards=[...document.querySelectorAll('.scratch-card')];
+  if(!cards.length)return;
+  cards.forEach(card=>{
+    const canvas=card.querySelector('.scratch-fx');
+    const ctx=canvas.getContext('2d');
+    let revealed=false,drawing=false;
+    function paintFoil(){
+      const r=card.getBoundingClientRect();
+      canvas.width=Math.max(1,r.width*devicePixelRatio);
+      canvas.height=Math.max(1,r.height*devicePixelRatio);
+      const g=ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+      g.addColorStop(0,'#C5963A');g.addColorStop(.5,'#7B3B47');g.addColorStop(1,'#2E5E4E');
+      ctx.fillStyle=g;ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle='rgba(255,255,255,.5)';
+      for(let i=0;i<40;i++){
+        const x=Math.random()*canvas.width,y=Math.random()*canvas.height,r2=Math.random()*2+.6;
+        ctx.beginPath();ctx.arc(x,y,r2,0,Math.PI*2);ctx.fill();
+      }
+      ctx.font=(canvas.width*.09)+'px sans-serif';ctx.fillStyle='rgba(255,255,255,.85)';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText('✦',canvas.width/2,canvas.height/2);
+    }
+    paintFoil();
+    if(window.ResizeObserver)new ResizeObserver(()=>{if(!revealed)paintFoil()}).observe(card);
+
+    function pt(ev){
+      const r=canvas.getBoundingClientRect();
+      return {x:(ev.clientX-r.left)*(canvas.width/r.width),y:(ev.clientY-r.top)*(canvas.height/r.height)};
+    }
+    function erase(ev){
+      const p=pt(ev);
+      ctx.globalCompositeOperation='destination-out';
+      ctx.beginPath();ctx.arc(p.x,p.y,canvas.width*.14,0,Math.PI*2);ctx.fill();
+      ctx.globalCompositeOperation='source-over';
+      checkDone();
+    }
+    function checkDone(){
+      if(revealed)return;
+      const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+      let cleared=0,total=0;
+      for(let i=3;i<data.length;i+=4*97){total++;if(data[i]<40)cleared++;}
+      if(total&&cleared/total>.5){
+        revealed=true;
+        canvas.classList.add('done');
+        card.classList.add('revealed');
+      }
+    }
+    canvas.addEventListener('pointerdown',ev=>{if(revealed)return;drawing=true;canvas.setPointerCapture(ev.pointerId);erase(ev)});
+    canvas.addEventListener('pointermove',ev=>{if(drawing)erase(ev)});
+    ['pointerup','pointercancel','pointerleave'].forEach(evName=>canvas.addEventListener(evName,()=>drawing=false));
+  });
+})();
+
+// inspiration wheel
+(()=>{
+  const wheel=document.getElementById('wheel'),btn=document.getElementById('wheel-spin'),result=document.getElementById('wheel-result');
+  if(!wheel||!btn)return;
+  const prompts=[
+    'ציירי דמיון פרוע על קנבס קטן',
+    'צבעי קיר דמיוני בצבעי אקריליק',
+    'ציירי פרח שאף אחת לא ראתה כמוהו',
+    'עצבי פרח מדאס לחדר שלך',
+    'עטרי קופסת עץ ישנה במפיות צבעוניות',
+    'עטרי קאפקייק בסגנון שלך',
+    'צבעי מסגרת עץ לתמונה האהובה עלייך',
+    'צרי תליון קטן בשרף צבעוני'
+  ];
+  let spinning=false,rotation=0;
+  btn.addEventListener('click',()=>{
+    if(spinning)return;
+    spinning=true;
+    result.classList.remove('show');
+    const seg=360/prompts.length;
+    const idx=Math.floor(Math.random()*prompts.length);
+    const targetCenter=idx*seg+seg/2;
+    rotation=rotation-(rotation%360)+360*4+(360-targetCenter);
+    wheel.style.transform='rotate('+rotation+'deg)';
+    setTimeout(()=>{
+      spinning=false;
+      result.textContent='🌟 '+prompts[idx];
+      result.classList.add('show');
+    },3300);
+  });
+})();
+
+// ambient magic cursor trail
+(()=>{
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canHover=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(reduce||!canHover)return;
+  const canvas=document.createElement('canvas');
+  canvas.id='magic-trail';canvas.setAttribute('aria-hidden','true');
+  document.body.appendChild(canvas);
+  const ctx=canvas.getContext('2d');
+  function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio}
+  resize();addEventListener('resize',resize);
+  const colors=['#C5963A','#7B3B47','#E7B9C4','#2E5E4E'];
+  let parts=[],last=0;
+  addEventListener('pointermove',ev=>{
+    if(document.documentElement.classList.contains('a11y-no-motion'))return;
+    const now=performance.now();
+    if(now-last<40)return;
+    last=now;
+    for(let i=0;i<2;i++){
+      parts.push({
+        x:ev.clientX*devicePixelRatio,y:ev.clientY*devicePixelRatio,
+        vx:(Math.random()-.5)*.6,vy:-Math.random()*.8-.2,
+        r:(Math.random()*2.2+1.4)*devicePixelRatio,
+        life:1,color:colors[Math.floor(Math.random()*colors.length)]
+      });
+    }
+  },{passive:true});
+  function tick(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    parts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.life-=.018;
+      ctx.globalAlpha=Math.max(p.life,0);
+      ctx.fillStyle=p.color;
+      ctx.beginPath();ctx.arc(p.x,p.y,Math.max(p.r*p.life,0),0,Math.PI*2);ctx.fill();
+    });
+    ctx.globalAlpha=1;
+    parts=parts.filter(p=>p.life>0);
+    requestAnimationFrame(tick);
+  }
+  tick();
 })();
 </script>
 </body>
