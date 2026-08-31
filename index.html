@@ -137,19 +137,26 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 @keyframes tw{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:.9;transform:scale(1.15)}}
 
 /* ---------- mascot ---------- */
-.hero-mascot{position:absolute;inset-block-start:6%;inset-inline-end:4%;z-index:1;width:clamp(90px,11vw,150px);
-  height:auto;pointer-events:none;filter:drop-shadow(0 14px 24px rgba(58,58,54,.18));
-  animation:floaty 6.4s ease-in-out .4s infinite}
+@keyframes mascotDance{
+  0%,100%{transform:translateY(0) rotate(-4deg) scale(1)}
+  30%{transform:translateY(-16px) rotate(5deg) scale(1.06)}
+  60%{transform:translateY(-6px) rotate(-4deg) scale(1.02)}
+  80%{transform:translateY(-13px) rotate(3deg) scale(1.05)}
+}
+.hero-mascot,.play-mascot,.surprise-mascot,.final-mascot{
+  pointer-events:none;animation:mascotDance 3.2s ease-in-out infinite;transform-origin:50% 85%}
+.hero-mascot{position:absolute;inset-block-start:6%;inset-inline-end:4%;z-index:1;width:clamp(100px,12vw,170px);
+  height:auto;filter:drop-shadow(0 14px 24px rgba(58,58,54,.2));animation-delay:.3s}
 @media(max-width:820px){.hero-mascot{display:none}}
-.play-mascot{position:absolute;inset-block-end:calc(100% - 6px);inset-inline-end:-8px;z-index:2;
-  width:clamp(70px,8vw,110px);height:auto;pointer-events:none;transform-origin:bottom center;
-  filter:drop-shadow(0 10px 18px rgba(58,58,54,.16));animation:floaty 5.6s ease-in-out .2s infinite}
+.play-mascot{position:absolute;inset-block-end:calc(100% - 4px);inset-inline-end:-10px;z-index:2;
+  width:clamp(80px,9vw,125px);height:auto;filter:drop-shadow(0 12px 20px rgba(58,58,54,.18));animation-delay:0s}
 @media(max-width:900px){.play-mascot{display:none}}
-.wheel-card .wheel-mascot{position:absolute;top:12px;right:12px;z-index:2;width:clamp(58px,6.5vw,84px);height:auto;
-  pointer-events:none;opacity:0;transform:scale(.7) rotate(-8deg);
-  transition:opacity .5s var(--ease),transform .5s var(--ease);
-  filter:drop-shadow(0 8px 14px rgba(58,58,54,.2))}
-.wheel-mascot.show{opacity:1;transform:scale(1) rotate(0deg)}
+.surprise-mascot{position:absolute;inset-block-start:clamp(36px,7vw,86px);inset-inline-end:4%;z-index:2;
+  width:clamp(80px,9vw,125px);height:auto;filter:drop-shadow(0 12px 20px rgba(58,58,54,.18));animation-delay:.6s}
+@media(max-width:900px){.surprise-mascot{display:none}}
+.final-mascot{position:absolute;inset-block-end:calc(100% - 6px);inset-inline-start:8%;z-index:2;
+  width:clamp(80px,9vw,125px);height:auto;filter:drop-shadow(0 12px 20px rgba(58,58,54,.2));animation-delay:.9s}
+@media(max-width:820px){.final-mascot{display:none}}
 
 /* ---------- intro band ---------- */
 .intro{background:var(--cream-deep);text-align:center;overflow:hidden}
@@ -287,6 +294,7 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 
 /* ---------- final cta ---------- */
 .final{text-align:center}
+.final .wrap{position:relative}
 .final-card{background:var(--cream-card);border:1px solid rgba(197,150,58,.25);border-radius:var(--r-lg);
   padding:clamp(36px,6vw,68px);box-shadow:var(--shadow);position:relative;overflow:hidden}
 .final-card::before,.final-card::after{content:"";position:absolute;border-radius:50%;filter:blur(60px);opacity:.45}
@@ -320,7 +328,7 @@ footer .credit a:hover{color:var(--gold-soft)}
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;filter:none;transition:none}
   .reveal-mask .mline>span{transform:none;transition:none}
-  .spark,.hero-logo,.strip-track,.hero-mascot,.play-mascot{animation:none}
+  .spark,.hero-logo,.strip-track,.hero-mascot,.play-mascot,.surprise-mascot,.final-mascot{animation:none}
   .hero::before,.hero::after{transform:none}
   .emo-bg img{transform:scale(1.1)}
   *{scroll-behavior:auto}
@@ -357,7 +365,7 @@ footer .credit a:hover{color:var(--gold-soft)}
 .pad-hint.gone{opacity:0}
 
 /* ---------- surprise: scratch-reveal cards ---------- */
-.surprise{background:var(--cream)}
+.surprise{background:var(--cream);position:relative}
 .scratch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,26px)}
 @media(max-width:760px){.scratch-grid{grid-template-columns:1fr}}
 .scratch-card{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-soft);border:5px solid #fff}
@@ -370,33 +378,6 @@ footer .credit a:hover{color:var(--gold-soft)}
   white-space:normal;text-align:center;max-width:calc(100% - 24px);box-shadow:var(--shadow-soft)}
 .scratch-card.revealed .scratch-tag{opacity:1}
 
-/* ---------- inspiration wheel ---------- */
-.wheel-zone{background:var(--cream-deep);text-align:center;overflow:hidden;padding-block:clamp(48px,8vw,90px)}
-.wheel-card{position:relative;max-width:520px;margin-inline:auto;background:var(--cream-card);
-  border:1px solid rgba(197,150,58,.25);border-radius:var(--r-lg);box-shadow:var(--shadow);
-  padding:clamp(32px,5vw,50px) clamp(20px,5vw,40px);display:flex;flex-direction:column;align-items:center;
-  gap:22px;overflow:hidden}
-.wheel-card::before,.wheel-card::after{content:"";position:absolute;border-radius:50%;filter:blur(60px);opacity:.4;z-index:0}
-.wheel-card::before{width:200px;height:200px;background:var(--rose);top:-70px;inset-inline-start:-60px}
-.wheel-card::after{width:180px;height:180px;background:var(--sky);bottom:-70px;inset-inline-end:-50px}
-.wheel-card>*{position:relative;z-index:1}
-.wheel-box{display:flex;flex-direction:column;align-items:center}
-.wheel-pointer{font-size:1.5rem;color:var(--bordeaux);margin-bottom:-11px;filter:drop-shadow(0 2px 3px rgba(58,58,54,.25))}
-.wheel{width:min(240px,58vw);aspect-ratio:1;border-radius:50%;position:relative;
-  background:
-    repeating-conic-gradient(#fff 0deg 1.4deg,transparent 1.4deg 45deg),
-    conic-gradient(var(--gold) 0deg 45deg,var(--bordeaux) 45deg 90deg,var(--pine) 90deg 135deg,
-      var(--gold) 135deg 180deg,var(--bordeaux) 180deg 225deg,var(--pine) 225deg 270deg,
-      var(--gold) 270deg 315deg,var(--bordeaux) 315deg 360deg);
-  box-shadow:var(--shadow-soft),inset 0 0 0 6px #fff,inset 0 0 0 8px rgba(197,150,58,.45);
-  transition:transform 3.2s cubic-bezier(.12,.86,.18,1)}
-.wheel::after{content:"✦";position:absolute;inset:36%;border-radius:50%;display:grid;place-items:center;
-  background:var(--cream-card);color:var(--gold);font-size:1.3rem;
-  box-shadow:0 3px 10px rgba(58,58,54,.28),inset 0 0 0 2.5px rgba(197,150,58,.55)}
-.wheel-result{font-family:'Frank Ruhl Libre';font-weight:500;font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--pine-deep);
-  min-height:1.6em;max-width:36ch;opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.wheel-result.show{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.wheel{transition:none}}
 
 /* ---------- accessibility controls ---------- */
 .a11y-fab{position:fixed;inset-block-end:92px;inset-inline-start:22px;z-index:61;min-width:52px;min-height:52px;border:0;
@@ -623,6 +604,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
 
 <!-- ===== SURPRISE: scratch-reveal cards ===== -->
 <section class="surprise">
+  <img class="surprise-mascot" src="assets/mascot-sparkle.webp" width="640" height="960" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow reveal">הפתעה קטנה</span>
@@ -645,26 +627,6 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
         <canvas class="scratch-fx" aria-hidden="true"></canvas>
         <span class="scratch-tag">✨ קופסת עץ בעיטור מפיות</span>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== WHEEL: inspiration wheel ===== -->
-<section class="wheel-zone">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow reveal">גלגל ההשראה</span>
-      <h2 class="reveal">לא יודעת ממה להתחיל? תני לגלגל להפתיע</h2>
-      <p class="lead reveal">סובבי, וקבלי רעיון יצירה קטן לנסות היום - כאן בסטודיו או בבית.</p>
-    </div>
-    <div class="wheel-card reveal">
-      <img class="wheel-mascot" id="wheel-mascot" src="assets/mascot-sparkle.webp" width="640" height="960" alt="" aria-hidden="true" loading="lazy">
-      <div class="wheel-box">
-        <div class="wheel-pointer" aria-hidden="true">▼</div>
-        <div class="wheel" id="wheel" role="img" aria-label="גלגל השראה צבעוני"></div>
-      </div>
-      <button type="button" class="btn btn-main wheel-spin" id="wheel-spin">✦ סובבי את הגלגל</button>
-      <p class="wheel-result" id="wheel-result" aria-live="polite"></p>
     </div>
   </div>
 </section>
@@ -703,6 +665,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
 <!-- ===== FINAL CTA ===== -->
 <section class="final" id="contact">
   <div class="wrap">
+    <img class="final-mascot" src="assets/mascot-idle.webp" width="640" height="960" alt="" aria-hidden="true" loading="lazy">
     <div class="final-card reveal">
       <div class="flower">🌸</div>
       <h2>אשמח ללוות גם את הבת שלך</h2>
@@ -960,41 +923,6 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains(
     canvas.addEventListener('pointerdown',ev=>{if(revealed)return;drawing=true;canvas.setPointerCapture(ev.pointerId);erase(ev)});
     canvas.addEventListener('pointermove',ev=>{if(drawing)erase(ev)});
     ['pointerup','pointercancel','pointerleave'].forEach(evName=>canvas.addEventListener(evName,()=>drawing=false));
-  });
-})();
-
-// inspiration wheel
-(()=>{
-  const wheel=document.getElementById('wheel'),btn=document.getElementById('wheel-spin'),result=document.getElementById('wheel-result');
-  const mascot=document.getElementById('wheel-mascot');
-  if(!wheel||!btn)return;
-  const prompts=[
-    'ציירי נוף דמיוני בצבעי מים על דף רטוב',
-    'צבעי פרח גדול על קנבס קטן באקריליק',
-    'עצבי פרח או חיה קטנה מדאס',
-    'עטרי קופסת עץ ישנה במפיות צבעוניות',
-    'עצבי תליון קטן משרף אפוקסי צבעוני',
-    'עטרי עוגייה או קאפקייק כמו קונדיטורית אמיתית',
-    'צבעי וקשטי מסגרת עץ לתמונה האהובה עלייך',
-    'צרי יצירה תלת־ממדית מקרטון, כפתורים וחוטים'
-  ];
-  let spinning=false,rotation=0;
-  btn.addEventListener('click',()=>{
-    if(spinning)return;
-    spinning=true;
-    result.classList.remove('show');
-    if(mascot)mascot.classList.remove('show');
-    const seg=360/prompts.length;
-    const idx=Math.floor(Math.random()*prompts.length);
-    const targetCenter=idx*seg+seg/2;
-    rotation=rotation-(rotation%360)+360*4+(360-targetCenter);
-    wheel.style.transform='rotate('+rotation+'deg)';
-    setTimeout(()=>{
-      spinning=false;
-      result.textContent='🌟 '+prompts[idx];
-      result.classList.add('show');
-      if(mascot)mascot.classList.add('show');
-    },3300);
   });
 })();
 
