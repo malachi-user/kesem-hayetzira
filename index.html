@@ -147,16 +147,18 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
   pointer-events:none;animation:mascotDance 3.2s ease-in-out infinite;transform-origin:50% 85%}
 .hero-mascot{position:absolute;inset-block-start:6%;inset-inline-end:4%;z-index:1;width:clamp(100px,12vw,170px);
   height:auto;filter:drop-shadow(0 14px 24px rgba(58,58,54,.2));animation-delay:.3s}
-@media(max-width:820px){.hero-mascot{display:none}}
 .play-mascot{position:absolute;inset-block-end:calc(100% - 4px);inset-inline-end:-10px;z-index:2;
   width:clamp(80px,9vw,125px);height:auto;filter:drop-shadow(0 12px 20px rgba(58,58,54,.18));animation-delay:0s}
-@media(max-width:900px){.play-mascot{display:none}}
 .surprise-mascot{position:absolute;inset-block-start:clamp(36px,7vw,86px);inset-inline-end:4%;z-index:2;
   width:clamp(80px,9vw,125px);height:auto;filter:drop-shadow(0 12px 20px rgba(58,58,54,.18));animation-delay:.6s}
-@media(max-width:900px){.surprise-mascot{display:none}}
 .final-mascot{position:absolute;inset-block-end:calc(100% - 6px);inset-inline-start:8%;z-index:2;
   width:clamp(80px,9vw,125px);height:auto;filter:drop-shadow(0 12px 20px rgba(58,58,54,.2));animation-delay:.9s}
-@media(max-width:820px){.final-mascot{display:none}}
+@media(max-width:820px){
+  .hero-mascot{width:clamp(58px,20vw,84px);inset-block-start:2%;inset-inline-end:3%}
+  .play-mascot{width:clamp(48px,15vw,68px);inset-inline-end:4px}
+  .surprise-mascot{width:clamp(52px,16vw,74px);inset-block-start:10px;inset-inline-end:3%}
+  .final-mascot{width:clamp(52px,16vw,74px);inset-inline-start:4%}
+}
 
 /* ---------- intro band ---------- */
 .intro{background:var(--cream-deep);text-align:center;overflow:hidden}
