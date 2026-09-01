@@ -4,9 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>קסם היצירה - הסטודיו של מירב | חוגי אומנות והעצמה לבנות</title>
-<meta name="description" content="קסם היצירה - הסטודיו של מירב גוטמן. חוגי אומנות וכישורי חיים לבנות, בקבוצות קטנות ויחס אישי. מקום שבו כל בת צומחת בביטחון." />
+<meta name="description" content="קסם היצירה - הסטודיו של מירב גוטמן. חוגי אומנות והעצמה אישית לבנות, בקבוצות קטנות ויחס אישי. מקום שבו כל בת צומחת בביטחון." />
 <meta property="og:title" content="קסם היצירה - הסטודיו של מירב | חוגי אומנות והעצמה לבנות" />
-<meta property="og:description" content="קסם היצירה - הסטודיו של מירב גוטמן. חוגי אומנות וכישורי חיים לבנות, בקבוצות קטנות ויחס אישי. מקום שבו כל בת צומחת בביטחון." />
+<meta property="og:description" content="קסם היצירה - הסטודיו של מירב גוטמן. חוגי אומנות והעצמה אישית לבנות, בקבוצות קטנות ויחס אישי. מקום שבו כל בת צומחת בביטחון." />
 <meta property="og:image" content="https://kesem-hayetzira.vercel.app/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -233,7 +233,6 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 
 /* ---------- classes cards ---------- */
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,2.8vw,34px);align-items:start}
-.card.life{grid-column:1 / -1}
 @media(max-width:760px){.cards{grid-template-columns:1fr}}
 .card{--pad:clamp(26px,3.5vw,40px);background:var(--cream-card);border:1px solid rgba(197,150,58,.2);border-radius:var(--r-lg);
   padding:var(--pad);box-shadow:var(--shadow-soft);transition:transform .5s var(--ease),box-shadow .5s var(--ease);position:relative;overflow:hidden}
@@ -246,14 +245,7 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 .card-media::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(to top,rgba(255,252,248,.28),transparent 42%)}
 
-/* life card side media */
-.card.life .life-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,48px);align-items:center}
-.life-media{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-soft);position:relative}
-.life-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;transition:transform 1s var(--ease)}
-.card.life:hover .life-media img{transform:scale(1.05)}
-@media(max-width:760px){.card.life .life-grid{grid-template-columns:1fr}.life-media{order:-1}}
 .card.art::before{background:linear-gradient(90deg,var(--rose),var(--gold),var(--sky))}
-.card.life::before{background:linear-gradient(90deg,var(--peach),var(--bordeaux))}
 .card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
 .card .ico{font-size:3rem;margin-bottom:14px;display:block}
 .card h3{font-size:clamp(1.6rem,3.2vw,2.15rem);margin-bottom:10px}
@@ -273,12 +265,6 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 .card-materials h4::before{content:"✦ ";color:var(--gold)}
 .card-materials .tags{margin-top:0}
 
-.skills-list{list-style:none;display:grid;gap:11px;margin-top:8px}
-.skills-list li{display:flex;align-items:center;gap:10px;font-size:1.1rem}
-.skills-list li::before{content:"💛";font-size:.9em}
-.card.life .skills-list{grid-template-columns:1fr 1fr;column-gap:clamp(24px,4vw,56px)}
-@media(max-width:600px){.card.life .skills-list{grid-template-columns:1fr}}
-.card .quote{margin-top:20px;font-family:'Frank Ruhl Libre';font-style:normal;color:var(--bordeaux);font-size:1.22rem;font-weight:500;line-height:1.55}
 .bridge{text-align:center;font-family:'Frank Ruhl Libre';font-weight:500;font-size:clamp(1.15rem,2.6vw,1.55rem);
   color:var(--pine-deep);max-width:34ch;margin:clamp(34px,5vw,50px) auto 0;line-height:1.5}
 
@@ -453,7 +439,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
     <span class="eyebrow reveal">חוגי אומנות לבנות · יד בנימין</span>
     <p class="slogan reveal">יוצרות באהבה · צומחות בביטחון</p>
     <h1 class="reveal reveal-mask"><span class="mline"><span>כל רעיון כאן הופך <em>ליצירת אומנות</em>.</span></span></h1>
-    <p class="sub reveal">חוגי אומנות שבועיים לבנות בכיתות ה'-ט', ולצדם גם חיזוק ביטחון עצמי וכישורי חיים.</p>
+    <p class="sub reveal">חוגי אומנות שבועיים לבנות בכיתות ה'-ט', שמחזקים גם ביטחון עצמי לצד היצירה.</p>
     <div class="hero-cta reveal">
       <a href="#contact" class="btn btn-main">
         <svg class="wa-ico" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
@@ -468,7 +454,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
       </div>
       <div class="fact">
         <span class="fact-ico">🗓️</span>
-        <div><span class="fact-label">פתיחת השנה</span><span class="fact-val">י"ט אלול · 1 בספטמבר</span></div>
+        <div><span class="fact-label">פתיחת השנה</span><span class="fact-val">אחרי החגים</span></div>
       </div>
     </div>
   </div>
@@ -595,23 +581,6 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
             <span class="tag">🖼️ קנבס</span>
             <span class="tag">✨ טקסטורות ותלת־ממד ועוד</span>
           </div>
-        </div>
-      </article>
-      <article class="card life reveal">
-        <div class="life-grid">
-          <div>
-            <span class="ico">🎭</span>
-            <h3>משחק החיים</h3>
-            <span class="ages">כישורי חיים · כיתות ד'–ו'</span>
-            <p>חוג ייחודי שבו הבנות רוכשות כלים חשובים לחיים דרך משחק, דרמה, חוויה והמון הנאה. במהלך המפגשים נחזק:</p>
-            <ul class="skills-list">
-              <li>ביטחון עצמי</li><li>תקשורת בין־אישית</li><li>ביטוי רגשי</li>
-              <li>עמידה מול קבוצה</li><li>שיתוף פעולה ופתרון קונפליקטים</li>
-              <li>הקשבה ואמפתיה</li><li>קבלת החלטות וכלים לחיים</li>
-            </ul>
-            <p class="quote">"כי כשהלמידה נעשית מתוך משחק - היא נכנסת ישר אל הלב."</p>
-          </div>
-          <div class="life-media"><img class="grade" src="assets/drama.webp" width="1000" height="700" loading="lazy" decoding="async" alt="אביזרי דרמה ומשחק - מסכות וצעיפים צבעוניים"></div>
         </div>
       </article>
     </div>
