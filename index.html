@@ -117,6 +117,9 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
   transform:translateY(calc(var(--sy,0)*.09px))}
 .hero::after{width:380px;height:380px;background:var(--sky);bottom:-140px;inset-inline-end:-90px;
   transform:translateY(calc(var(--sy,0)*-.06px))}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.hero-bg img{width:100%;height:118%;object-fit:cover;object-position:top center;opacity:.22;mix-blend-mode:luminosity;
+  transform:translateY(calc(var(--sy,0)*.04px)) scale(1.08);will-change:transform}
 .hero .wrap{position:relative;z-index:1}
 .hero-logo{width:min(330px,72vw);margin-inline:auto;margin-bottom:26px;filter:drop-shadow(0 16px 30px rgba(58,58,54,.12));
   animation:floaty 7s ease-in-out 1.6s infinite}
@@ -296,9 +299,6 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 /* ---------- emotional band ---------- */
 .emo{background:linear-gradient(135deg,var(--pine-deep),var(--pine));color:var(--cream);text-align:center;overflow:hidden;isolation:isolate}
 .emo::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(197,150,58,.22),transparent 55%);z-index:0}
-.emo-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.emo-bg img{width:100%;height:118%;object-fit:cover;opacity:.11;mix-blend-mode:luminosity;
-  transform:translateY(calc(var(--ep,0)*1px)) scale(1.1);will-change:transform}
 .emo .wrap{position:relative;z-index:1}
 .emo h2{color:var(--cream);font-size:clamp(1.8rem,4.5vw,2.8rem);margin-bottom:6px}
 .emo .big{font-family:'Heebo';font-weight:900;font-size:clamp(1.7rem,5vw,3rem);line-height:1.25;margin-block:18px;color:#fff}
@@ -345,7 +345,7 @@ footer .credit a:hover{color:var(--gold-soft)}
   .reveal-mask .mline>span{transform:none;transition:none}
   .spark,.hero-logo,.strip-track,.hero-mascot,.play-mascot,.surprise-mascot,.final-mascot{animation:none}
   .hero::before,.hero::after{transform:none}
-  .emo-bg img{transform:scale(1.1)}
+  .hero-bg img{transform:scale(1.08)}
   *{scroll-behavior:auto}
 }
 
@@ -445,6 +445,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"><img src="assets/hero-studio.webp" width="1400" height="1400" decoding="async" alt=""></div>
   <span class="spark" style="top:18%;inset-inline-start:14%;font-size:1.3rem">✦</span>
   <span class="spark" style="top:30%;inset-inline-end:12%;font-size:1rem;animation-delay:1.2s">✧</span>
   <span class="spark" style="bottom:24%;inset-inline-start:20%;font-size:.9rem;animation-delay:2s">✦</span>
@@ -677,7 +678,6 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
 
 <!-- ===== EMOTIONAL ===== -->
 <section class="emo">
-  <div class="emo-bg" aria-hidden="true"><img src="assets/studio-wide.webp" width="1408" height="768" loading="lazy" decoding="async" alt=""></div>
   <div class="wrap">
     <h2 class="reveal">בקסם היצירה לא רק יוצרים יצירות...</h2>
     <p class="big reveal">יוצרים <b>ביטחון</b>. יוצרים <b>שמחה</b>.<br>יוצרים <b>חברות</b>. יוצרים <b>הצלחות</b>.</p>
@@ -777,10 +777,10 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains('reveal-mask'))el.style.transitionDelay=(i%4*70)+'ms';io.observe(el)});
 
-// scroll progress + light parallax (hero blobs, emotional band backdrop)
+// scroll progress + light parallax (hero blobs + background photo)
 (()=>{
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const bar=document.querySelector('.progress'),hero=document.querySelector('.hero'),emo=document.querySelector('.emo');
+  const bar=document.querySelector('.progress'),hero=document.querySelector('.hero');
   let ticking=false;
   function frame(){
     ticking=false;
@@ -788,13 +788,6 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{if(!el.classList.contains(
     if(bar)bar.style.setProperty('--p',(h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight)).toFixed(4));
     if(reduce)return;
     if(hero)hero.style.setProperty('--sy',Math.min(window.scrollY,900));
-    if(emo){
-      const r=emo.getBoundingClientRect();
-      if(r.bottom>0&&r.top<innerHeight){
-        const p=(innerHeight-r.top)/(innerHeight+r.height);
-        emo.style.setProperty('--ep',((p-.5)*-56).toFixed(1));
-      }
-    }
   }
   addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(frame)}},{passive:true});
   frame();
