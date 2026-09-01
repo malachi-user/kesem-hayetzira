@@ -117,9 +117,6 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
   transform:translateY(calc(var(--sy,0)*.09px))}
 .hero::after{width:380px;height:380px;background:var(--sky);bottom:-140px;inset-inline-end:-90px;
   transform:translateY(calc(var(--sy,0)*-.06px))}
-.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.hero-bg img{width:100%;height:118%;object-fit:cover;object-position:top center;opacity:.22;mix-blend-mode:luminosity;
-  transform:translateY(calc(var(--sy,0)*.04px)) scale(1.08);will-change:transform}
 .hero .wrap{position:relative;z-index:1}
 .hero-logo{width:min(330px,72vw);margin-inline:auto;margin-bottom:26px;filter:drop-shadow(0 16px 30px rgba(58,58,54,.12));
   animation:floaty 7s ease-in-out 1.6s infinite}
@@ -171,12 +168,15 @@ header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
 }
 
 /* ---------- intro band ---------- */
-.intro{background:var(--cream-deep);text-align:center;overflow:hidden}
+.intro{background:var(--cream-deep);text-align:center;overflow:hidden;isolation:isolate}
+.intro-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.intro-bg img{width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.16;mix-blend-mode:luminosity}
+.intro .wrap{position:relative;z-index:1}
 .intro p{font-family:'Frank Ruhl Libre';font-weight:500;font-size:clamp(1.3rem,3.4vw,2rem);color:var(--pine-deep);max-width:24ch;margin-inline:auto;line-height:1.4}
 .intro .intro-sub{font-family:'Assistant';font-weight:600;font-size:clamp(1rem,2.2vw,1.15rem);color:var(--ink-soft);max-width:40ch;margin:16px auto 0;line-height:1.6}
 
 /* ---------- studio gallery wall (mosaic, scroll-reveal + pointer tilt) ---------- */
-.gallery{margin-top:clamp(44px,7vw,72px)}
+.gallery{position:relative;z-index:1;margin-top:clamp(44px,7vw,72px)}
 .gallery-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:min(15vw,86px);
   gap:clamp(10px,1.6vw,18px);max-width:1080px;margin-inline:auto;padding-inline:clamp(20px,5vw,40px)}
 .gitem{position:relative;border-radius:20px;overflow:hidden;border:5px solid #fff;box-shadow:var(--shadow-soft);
@@ -345,7 +345,6 @@ footer .credit a:hover{color:var(--gold-soft)}
   .reveal-mask .mline>span{transform:none;transition:none}
   .spark,.hero-logo,.strip-track,.hero-mascot,.play-mascot,.surprise-mascot,.final-mascot{animation:none}
   .hero::before,.hero::after{transform:none}
-  .hero-bg img{transform:scale(1.08)}
   *{scroll-behavior:auto}
 }
 
@@ -445,7 +444,6 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="top">
-  <div class="hero-bg" aria-hidden="true"><img src="assets/hero-studio.webp" width="1400" height="1400" decoding="async" alt=""></div>
   <span class="spark" style="top:18%;inset-inline-start:14%;font-size:1.3rem">✦</span>
   <span class="spark" style="top:30%;inset-inline-end:12%;font-size:1rem;animation-delay:1.2s">✧</span>
   <span class="spark" style="bottom:24%;inset-inline-start:20%;font-size:.9rem;animation-delay:2s">✦</span>
@@ -478,6 +476,7 @@ html.a11y-contrast a{color:#ffeb3b !important}html.a11y-contrast button{border:2
 
 <!-- ===== INTRO ===== -->
 <section class="intro">
+  <div class="intro-bg" aria-hidden="true"><img src="assets/studio-bg.webp" width="1400" height="1400" loading="lazy" decoding="async" alt=""></div>
   <div class="wrap">
     <div class="ornament reveal">✿</div>
     <p class="reveal">מתי בפעם האחרונה הבת שלך ישבה ויצרה משהו במו ידיה - בלי מסך, בלי לחץ, רק היא והדמיון שלה?</p>
